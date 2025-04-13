@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f7fc;
+        }
+        h1 {
+            text-align: center;
+            color: #2d3e50;
+        }
+        .product-list {
+            margin: 20px 0;
+        }
+        .product {
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+        .product h3 {
+            margin: 0;
+            color: #007bff;
+        }
+        .product p {
+            margin: 5px 0;
+        }
+        .form-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-container input[type="text"], .form-container input[type="number"], .form-container textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .form-container button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .admin-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .admin-link a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Product List</h1>
+
+    <div class="product-list">
+        <h2>Available Products</h2>
+        {% if products %}
+            {% for product in products %}
+                <div class="product">
+                    <h3>{{ product.name }}</h3>
+                    <p><strong>Description:</strong> {{ product.description }}</p>
+                    <p><strong>Price:</strong> ${{ product.price }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No products available yet. Please add a new product.</p>
+        {% endif %}
+    </div>
+
+    <div class="form-container">
+        <h2>Add a New Product</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Add Product</button>
+        </form>
+    </div>
+
+    <!-- Admin Panel Link -->
+    <div class="admin-link">
+        <p><a href="{% url 'admin:index' %}" target="_blank">Go to Admin Panel</a></p>
+    </div>
+
+</body>
+</html>
